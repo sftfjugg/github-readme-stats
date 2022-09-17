@@ -11,16 +11,16 @@ const OWNER = "anuraghazra";
 const REPO = "github-readme-stats";
 const COMMENT_TITLE = "Automated Theme Preview";
 
-function getPrNumber() {
+const getPrNumber = () => {
   const pullRequest = github.context.payload.pull_request;
   if (!pullRequest) {
     return undefined;
   }
 
   return pullRequest.number;
-}
+};
 
-function findCommentPredicate(inputs, comment) {
+const findCommentPredicate = (inputs, comment) => {
   return (
     (inputs.commentAuthor && comment.user
       ? comment.user.login === inputs.commentAuthor
@@ -29,9 +29,9 @@ function findCommentPredicate(inputs, comment) {
       ? comment.body.includes(inputs.bodyIncludes)
       : true)
   );
-}
+};
 
-async function findComment(octokit, issueNumber) {
+const findComment = async (octokit, issueNumber) => {
   const parameters = {
     owner: OWNER,
     repo: REPO,
@@ -52,28 +52,28 @@ async function findComment(octokit, issueNumber) {
     );
     if (comment) return comment;
   }
-}
+};
 
-async function upsertComment(octokit, props) {
+const upsertComment = async (octokit, props) => {
   if (props.comment_id !== undefined) {
     await octokit.issues.updateComment(props);
   } else {
     await octokit.issues.createComment(props);
   }
-}
+};
 
-function getWebAimLink(color1, color2) {
+const getWebAimLink = (color1, color2) => {
   return `https://webaim.org/resources/contrastchecker/?fcolor=${color1}&bcolor=${color2}`;
-}
+};
 
-function getGrsLink(colors) {
+const getGrsLink = (colors) => {
   const url = `https://github-readme-stats.vercel.app/api?username=anuraghazra`;
   const colorString = Object.keys(colors)
     .map((colorKey) => `${colorKey}=${colors[colorKey]}`)
     .join("&");
 
   return `${url}&${colorString}&show_icons=true`;
-}
+};
 
 const themeContribGuidelines = `
   \rHi, thanks for the theme contribution, please read our theme [contribution guidelines](https://github.com/anuraghazra/github-readme-stats/blob/master/CONTRIBUTING.md#themes-contribution).  
@@ -82,7 +82,7 @@ const themeContribGuidelines = `
   \r> Also note that if this theme is exclusively for your personal use, then instead of adding it to our theme collection you can use card [customization options](https://github.com/anuraghazra/github-readme-stats#customization) 
 `;
 
-async function run() {
+const run = async () => {
   try {
     const ccc = new ColorContrastChecker();
     const warnings = [];
@@ -183,6 +183,6 @@ async function run() {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 run();

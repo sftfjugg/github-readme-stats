@@ -105,12 +105,12 @@ const totalCommitsFetcher = async (username) => {
  * @param {boolean} include_all_commits
  * @returns {Promise<import("./types").StatsData>}
  */
-async function fetchStats(
+const fetchStats = async (
   username,
   count_private = false,
   include_all_commits = false,
   exclude_repo = [],
-) {
+) => {
   if (!username) throw new MissingParamError(["username"]);
 
   const stats = {
@@ -185,6 +185,6 @@ async function fetchStats(
   });
 
   return stats;
-}
+};
 
 module.exports = fetchStats;

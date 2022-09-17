@@ -354,9 +354,9 @@ const wakatimeCardLocales = {
 
 const availableLocales = Object.keys(repoCardLocales["repocard.archived"]);
 
-function isLocaleAvailable(locale) {
+const isLocaleAvailable = (locale) => {
   return availableLocales.includes(locale.toLowerCase());
-}
+};
 
 module.exports = {
   isLocaleAvailable,

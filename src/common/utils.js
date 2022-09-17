@@ -32,38 +32,38 @@ const renderError = (message, secondaryMessage = "") => {
  * @param {string} str
  * @returns {string}
  */
-function encodeHTML(str) {
+const encodeHTML = (str) => {
   return str
     .replace(/[\u00A0-\u9999<>&](?!#)/gim, (i) => {
       return "&#" + i.charCodeAt(0) + ";";
     })
     .replace(/\u0008/gim, "");
-}
+};
 
 /**
  * @param {number} num
  */
-function kFormatter(num) {
+const kFormatter = (num) => {
   return Math.abs(num) > 999
     ? Math.sign(num) * parseFloat((Math.abs(num) / 1000).toFixed(1)) + "k"
     : Math.sign(num) * Math.abs(num);
-}
+};
 
 /**
  * @param {string} hexColor
  * @returns {boolean}
  */
-function isValidHexColor(hexColor) {
+const isValidHexColor = (hexColor) => {
   return new RegExp(
     /^([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{4})$/,
   ).test(hexColor);
-}
+};
 
 /**
  * @param {string} value
  * @returns {boolean | string}
  */
-function parseBoolean(value) {
+const parseBoolean = (value) => {
   if (value === "true") {
     return true;
   } else if (value === "false") {
@@ -71,40 +71,40 @@ function parseBoolean(value) {
   } else {
     return value;
   }
-}
+};
 
 /**
  * @param {string} str
  */
-function parseArray(str) {
+const parseArray = (str) => {
   if (!str) return [];
   return str.split(",");
-}
+};
 
 /**
  * @param {number} number
  * @param {number} min
  * @param {number} max
  */
-function clampValue(number, min, max) {
+const clampValue = (number, min, max) => {
   // @ts-ignore
   if (Number.isNaN(parseInt(number))) return min;
   return Math.max(min, Math.min(number, max));
-}
+};
 
 /**
  * @param {string[]} colors
  */
-function isValidGradient(colors) {
+const isValidGradient = (colors) => {
   return isValidHexColor(colors[1]) && isValidHexColor(colors[2]);
-}
+};
 
 /**
  * @param {string} color
  * @param {string} fallbackColor
  * @returns {string | string[]}
  */
-function fallbackColor(color, fallbackColor) {
+const fallbackColor = (color, fallbackColor) => {
   let colors = color.split(",");
   let gradient = null;
 
@@ -116,13 +116,13 @@ function fallbackColor(color, fallbackColor) {
     (gradient ? gradient : isValidHexColor(color) && `#${color}`) ||
     fallbackColor
   );
-}
+};
 
 /**
  * @param {import('axios').AxiosRequestConfig['data']} data
  * @param {import('axios').AxiosRequestConfig['headers']} headers
  */
-function request(data, headers) {
+const request = (data, headers) => {
   // @ts-ignore
   return axios({
     url: "https://api.github.com/graphql",
@@ -130,7 +130,7 @@ function request(data, headers) {
     headers,
     data,
   });
-}
+};
 
 /**
  * @param {object} props
@@ -145,7 +145,7 @@ function request(data, headers) {
  * Auto layout utility, allows us to layout things
  * vertically or horizontally with proper gaping
  */
-function flexLayout({ items, gap, direction, sizes = [] }) {
+const flexLayout = ({ items, gap, direction, sizes = [] }) => {
   let lastSize = 0;
   // filter() for filtering out empty strings
   return items.filter(Boolean).map((item, i) => {
@@ -157,7 +157,7 @@ function flexLayout({ items, gap, direction, sizes = [] }) {
     lastSize += size + gap;
     return `<g transform="${transform}">${item}</g>`;
   });
-}
+};
 
 /**
  * @typedef {object} CardColors
@@ -173,7 +173,7 @@ function flexLayout({ items, gap, direction, sizes = [] }) {
  * returns theme based colors with proper overrides and defaults
  * @param {CardColors} options
  */
-function getCardColors({
+const getCardColors = ({
   title_color,
   text_color,
   icon_color,
@@ -181,7 +181,7 @@ function getCardColors({
   border_color,
   theme,
   fallbackTheme = "default",
-}) {
+}) => {
   const defaultTheme = themes[fallbackTheme];
   const selectedTheme = themes[theme] || defaultTheme;
   const defaultBorderColor =
@@ -212,7 +212,7 @@ function getCardColors({
   );
 
   return { titleColor, iconColor, textColor, bgColor, borderColor };
-}
+};
 
 /**
  * @param {string} text
@@ -220,7 +220,7 @@ function getCardColors({
  * @param {number} maxLines
  * @returns {string[]}
  */
-function wrapTextMultiline(text, width = 59, maxLines = 3) {
+const wrapTextMultiline = (text, width = 59, maxLines = 3) => {
   const fullWidthComma = "，";
   const encoded = encodeHTML(text);
   const isChinese = encoded.includes(fullWidthComma);
@@ -245,7 +245,7 @@ function wrapTextMultiline(text, width = 59, maxLines = 3) {
   // Remove empty lines if text fits in less than maxLines lines
   const multiLineText = lines.filter(Boolean);
   return multiLineText;
-}
+};
 
 const noop = () => {};
 // return console instance based on the environment
@@ -301,7 +301,7 @@ class MissingParamError extends Error {
  * @param {number} fontSize
  * @returns
  */
-function measureText(str, fontSize = 10) {
+const measureText = (str, fontSize = 10) => {
   // prettier-ignore
   const widths = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -333,7 +333,7 @@ function measureText(str, fontSize = 10) {
       )
       .reduce((cur, acc) => acc + cur) * fontSize
   );
-}
+};
 
 /** @param {string} name */
 const lowercaseTrim = (name) => name.toLowerCase().trim();
@@ -344,7 +344,7 @@ const lowercaseTrim = (name) => name.toLowerCase().trim();
  * @param {number} perChunk
  * @returns {Array<T>}
  */
-function chunkArray(arr, perChunk) {
+const chunkArray = (arr, perChunk) => {
   return arr.reduce((resultArray, item, index) => {
     const chunkIndex = Math.floor(index / perChunk);
 
@@ -356,19 +356,19 @@ function chunkArray(arr, perChunk) {
 
     return resultArray;
   }, []);
-}
+};
 
 /**
  *
  * @param {string} str
  * @returns {string}
  */
-function parseEmojis(str) {
+const parseEmojis = (str) => {
   if (!str) throw new Error("[parseEmoji]: str argument not provided");
   return str.replace(/:\w+:/gm, (emoji) => {
     return toEmoji.get(emoji) || "";
   });
-}
+};
 
 module.exports = {
   renderError,

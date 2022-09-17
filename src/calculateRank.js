@@ -1,5 +1,5 @@
 // https://stackoverflow.com/a/5263759/10629172
-function normalcdf(mean, sigma, to) {
+const normalcdf = (mean, sigma, to) => {
   var z = (to - mean) / Math.sqrt(2 * sigma * sigma);
   var t = 1 / (1 + 0.3275911 * Math.abs(z));
   var a1 = 0.254829592;
@@ -14,9 +14,9 @@ function normalcdf(mean, sigma, to) {
     sign = -1;
   }
   return (1 / 2) * (1 + sign * erf);
-}
+};
 
-function calculateRank({
+const calculateRank = ({
   totalRepos,
   totalCommits,
   contributions,
@@ -24,7 +24,7 @@ function calculateRank({
   prs,
   issues,
   stargazers,
-}) {
+}) => {
   const COMMITS_OFFSET = 1.65;
   const CONTRIBS_OFFSET = 1.65;
   const ISSUES_OFFSET = 1;
@@ -72,6 +72,6 @@ function calculateRank({
   })();
 
   return { level, score: normalizedScore };
-}
+};
 
 module.exports = calculateRank;

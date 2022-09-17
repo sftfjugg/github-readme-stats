@@ -55,7 +55,7 @@ const urlExample = "/api/pin?username=USERNAME&amp;repo=REPO_NAME";
  * @param {string} reponame
  * @returns {Promise<import("./types").RepositoryData>}
  */
-async function fetchRepo(username, reponame) {
+const fetchRepo = async (username, reponame) => {
   if (!username && !reponame) {
     throw new MissingParamError(["username", "repo"], urlExample);
   }
@@ -95,6 +95,6 @@ async function fetchRepo(username, reponame) {
       starCount: data.organization.repository.stargazers.totalCount,
     };
   }
-}
+};
 
 module.exports = fetchRepo;
