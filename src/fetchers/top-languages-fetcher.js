@@ -1,9 +1,6 @@
 // @ts-check
-import * as dotenv from "dotenv";
 import { retryer } from "../common/retryer.js";
 import { logger, MissingParamError, request } from "../common/utils.js";
-
-dotenv.config();
 
 /**
  * @param {import('Axios').AxiosRequestHeaders} variables
