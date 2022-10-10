@@ -94,6 +94,7 @@ Visit <https://indiafightscorona.giveindia.org> and make a small donation to hel
     -   [Wakatime Card Exclusive Option](#wakatime-card-exclusive-options)
 -   [Deploy Yourself](#deploy-on-your-own-vercel-instance)
     -   [Disable rate limit protections](#disable-rate-limit-protections)
+    -   [Keep your fork up to date](#keep-your-fork-up-to-date)
 
 # Important Notice
 
@@ -454,6 +455,9 @@ See [the Vercel documentation](https://vercel.com/docs/concepts/projects/environ
 
 > **Warning**
 > Please be aware that disabling these rate limit protections increases the execution time of the serverless function as now more data needs to be fetched. As a result, GitHub users with many repositories might hit Vercel's [Serverless Function Execution Timeout](https://vercel.com/docs/concepts/limits/overview).
+### Keep your fork up to date
+
+You can keep your fork, and thus your private Vercel instance up to date with the upstream using GitHubs' [Sync Fork button](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork). You can also use the [pull](https://github.com/wei/pull) package created by [@wei](https://github.com/wei) to automate this process.
 
 ## :sparkling_heart: Support the project
 
